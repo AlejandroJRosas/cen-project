@@ -8,7 +8,7 @@ grpcui:
 	grpcui -plaintext localhost:$(DEFAULT_PORT)
 
 build:
-	go build -C server -o ../bin/server.exe main.go
+	go build -C server -o ../bin/server.exe .
 
 run:
 	bin/server.exe

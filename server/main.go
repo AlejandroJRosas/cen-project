@@ -3,23 +3,30 @@ package main
 import (
 	"log"
 	"net"
+	"os"
+	"strconv"
+
+	_ "github.com/joho/godotenv/autoload"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 
-	"github.com/AlejandroJRosas/cen-project/modules/calculator"
-	pbCalc "github.com/AlejandroJRosas/cen-project/pb/calculator"
+	"github.com/AlejandroJRosas/cen-project/internal/calculator"
+	"github.com/AlejandroJRosas/cen-project/internal/greeter"
 
-	"github.com/AlejandroJRosas/cen-project/modules/greeter"
+	pbCalc "github.com/AlejandroJRosas/cen-project/pb/calculator"
 	pbGreeter "github.com/AlejandroJRosas/cen-project/pb/greeter"
 )
 
-const (
-	port = ":8080"
-)
-
 func main() {
-	listener, err := net.Listen("tcp", port)
+	port, err := strconv.Atoi(os.Getenv("PORT"))
+
+	if err != nil {
+		port = 8080
+	}
+
+	listener, err := net.Listen("tcp", ":"+strconv.Itoa(port))
+
 	if err != nil {
 		log.Fatalf("Failed to listen on port [%v]: %v", port, err)
 	}
@@ -27,8 +34,8 @@ func main() {
 	s := grpc.NewServer()
 	reflection.Register(s)
 
-	pbCalc.RegisterCalculatorServer(s, &calculator.CalculatorServer{})
 	pbGreeter.RegisterGreeterServer(s, &greeter.GreeterServer{})
+	pbCalc.RegisterCalculatorServer(s, &calculator.CalculatorServer{})
 
 	log.Printf("gRPC server running on %v", listener.Addr())
 
