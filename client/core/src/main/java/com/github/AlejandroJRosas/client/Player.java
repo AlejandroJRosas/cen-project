@@ -64,7 +64,7 @@ public class Player implements Entity {
 		idleTopRightAnimation = new Animation<>(FRAME_DURATION, movementFrames[9][0]);
 
 		// Set initial position and animation
-		position = new Vector2(0, 14);
+		position = new Vector2(0, 0);
 		stateTime = 0;
 		currentAnimation = idleDownAnimation; // Set to a default animation
 	}
@@ -73,7 +73,7 @@ public class Player implements Entity {
 	public void render(SpriteBatch batch) {
 		TextureRegion currentFrame = currentAnimation.getKeyFrame(stateTime, true);
 		batch.draw(currentFrame, position.x, position.y);
-		camera.position.set(position.x + 32, position.y + 32, 10);
+		camera.position.set(position, 10);
 	}
 
 	@Override

@@ -55,12 +55,12 @@ public class Tilemap {
     }
   }
 
-  public void render(SpriteBatch batch) {
+  public void render(SpriteBatch batch, float delta) {
     for (int i = 0; i < tiles.size(); i++) {
       Tile tile = tiles.get(i);
 
       if (i < currentTileY * map[0].length + currentTileX) {
-        tile.render(batch);
+        tile.render(batch, delta);
       }
     }
   }
@@ -83,20 +83,14 @@ public class Tilemap {
     for (int yCoord = 0; yCoord < map.length; yCoord++) {
       for (int xCoord = 0; xCoord < map[yCoord].length; xCoord++) {
         Vector2 worldPosition = new Vector2(xCoord, yCoord);
-        Vector2 isoCoords = fromCartesianToIso(worldPosition, block);
+        CoordsTransformer transformer = CoordsTransformer.getInstance();
+        Vector2 isoCoords = transformer.convertCartesianToIso(worldPosition);
 
         if (map[yCoord][xCoord].equals(BLOCK_TAG)) {
           tiles.add(new Tile(block, isoCoords, worldPosition));
         }
       }
     }
-  }
-
-  private Vector2 fromCartesianToIso(Vector2 cartesian, Texture tile) {
-    float isoX = (cartesian.x * (tile.getWidth() / 2)) - (cartesian.y * (tile.getWidth() / 2));
-    float isoY = (cartesian.x * (tile.getHeight() / 4f)) + (cartesian.y * (tile.getHeight() / 4f));
-
-    return new Vector2(isoX, -isoY);
   }
 
   public LinkedList<Tile> getTiles() {

@@ -57,7 +57,7 @@ public class GameScreen extends ScreenAdapter {
 		// }
 
 		batch.begin();
-		map.render(batch);
+		map.render(batch, delta);
 		player.render(batch);
 		batch.end();
 	}
