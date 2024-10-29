@@ -1,6 +1,8 @@
 package com.github.AlejandroJRosas.client;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
@@ -21,6 +23,10 @@ public class Core extends Game {
     @Override
     public void render() {
         super.render();
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            Gdx.app.exit();
+        }
     }
 
     @Override

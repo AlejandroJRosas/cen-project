@@ -11,7 +11,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Player implements Entity {
 	private static final int FRAME_COLS = 8, FRAME_ROWS = 16;
-	private static final float X_SPEED = 1, Y_SPEED = 0.6f;
+	private static final float X_SPEED = 1.5f, Y_SPEED = X_SPEED * 0.5f;
 	private static final float FRAME_DURATION = 0.1f;
 
 	private Vector2 position;
@@ -86,6 +86,7 @@ public class Player implements Entity {
 		return position;
 	}
 
+	// TODO: Implement player collisions with map
 	private void move() {
 		Vector2 movement = new Vector2(0, 0);
 		boolean isMoveUpKeyPressed = Gdx.input.isKeyPressed(Input.Keys.W);
@@ -108,6 +109,7 @@ public class Player implements Entity {
 
 		if (movement.len() > 0) {
 			movement.nor();
+			movement.scl(X_SPEED);
 
 			if (isMoveUpKeyPressed && isMoveLeftKeyPressed) {
 				currentAnimation = topLeftAnimation;

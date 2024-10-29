@@ -12,17 +12,24 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 public class Tilemap {
-  public LinkedList<Tile> base, objects;
-  private Texture hill, water, grass, player;
+  private static final String BLOCK_TAG = "0";
+  // private static final String T1_BLOCK_TAG = "1";
+  // private static final String T2_BLOCK_TAG = "2";
+  // private static final String T3_BLOCK_TAG = "3";
+  // private static final String T4_BLOCK_TAG = "4";
+
+  private float revealDelay = 0.05f;
+  private float elapsedTime = 0f;
+  private int currentTileX = 0;
+  private int currentTileY = 0;
+
+  private Texture block;
+  public LinkedList<Tile> tiles;
   private String[][] map;
 
   public Tilemap() {
-    hill = new Texture(Gdx.files.internal("sprites/grass.png"));
-    water = new Texture(Gdx.files.internal("sprites/void.png"));
-    grass = new Texture(Gdx.files.internal("sprites/grass.png"));
-    player = new Texture(Gdx.files.internal("sprites/player.png"));
-    base = new LinkedList<Tile>();
-    objects = new LinkedList<Tile>();
+    block = new Texture(Gdx.files.internal("sprites/grass.png"));
+    tiles = new LinkedList<Tile>();
     map = new String[10][10];
     try {
       fillMap();
@@ -31,16 +38,35 @@ public class Tilemap {
     }
   }
 
-  public void render(SpriteBatch batch) {
-    for (Tile tile : base) {
-      tile.render(batch);
+  public void update(float deltaTime) {
+    elapsedTime += deltaTime;
+
+    if (elapsedTime >= revealDelay) {
+      if (currentTileY < map.length) {
+        currentTileX++;
+
+        if (currentTileX >= map[0].length) {
+          currentTileX = 0;
+          currentTileY++;
+        }
+      }
+
+      elapsedTime = 0f;
     }
-    for (Tile tile : objects) {
-      tile.render(batch);
+  }
+
+  public void render(SpriteBatch batch) {
+    for (int i = 0; i < tiles.size(); i++) {
+      Tile tile = tiles.get(i);
+
+      if (i < currentTileY * map[0].length + currentTileX) {
+        tile.render(batch);
+      }
     }
   }
 
   public void fillMap() throws IOException {
+    // TODO: Read map from file instead of hardcoding it
     FileHandle mapFile = Gdx.files
         .internal("C:\\Users\\Wilme\\Documents\\GitHub\\cen-project\\client\\assets\\data\\mapBase.txt");
     BufferedReader reader = new BufferedReader(new FileReader(mapFile.path()));
@@ -54,24 +80,38 @@ public class Tilemap {
 
     reader.close();
 
-    for (int row = map.length - 1; row >= 0; row--) {
-      for (int col = map[row].length - 1; col >= 0; col--) {
-        float x = (row * (grass.getWidth() / 2)) - (col * (grass.getWidth() / 2));
-        float y = (row * (grass.getHeight() / 4)) + (col * (grass.getHeight() / 4));
+    for (int yCoord = 0; yCoord < map.length; yCoord++) {
+      for (int xCoord = 0; xCoord < map[yCoord].length; xCoord++) {
+        Vector2 worldPosition = new Vector2(xCoord, yCoord);
+        Vector2 isoCoords = fromCartesianToIso(worldPosition, block);
 
-        if (map[row][col].equals("g")) {
-          base.add(new Tile(grass, new Vector2(col, row), new Vector2(x, y)));
-        } else if (map[row][col].equals("w")) {
-          base.add(new Tile(water, new Vector2(col, row), new Vector2(x, y)));
-        } else if (map[row][col].equals("h")) {
-          base.add(new Tile(hill, new Vector2(col, row), new Vector2(x, y)));
-        } else if (map[row][col].equals("p")) {
-          objects.add(new Tile(player, new Vector2(col, row), new Vector2(x, y)));
-
+        if (map[yCoord][xCoord].equals(BLOCK_TAG)) {
+          tiles.add(new Tile(block, isoCoords, worldPosition));
         }
       }
-
     }
   }
 
+  private Vector2 fromCartesianToIso(Vector2 cartesian, Texture tile) {
+    float isoX = (cartesian.x * (tile.getWidth() / 2)) - (cartesian.y * (tile.getWidth() / 2));
+    float isoY = (cartesian.x * (tile.getHeight() / 4f)) + (cartesian.y * (tile.getHeight() / 4f));
+
+    return new Vector2(isoX, -isoY);
+  }
+
+  public LinkedList<Tile> getTiles() {
+    return tiles;
+  }
+
+  public Vector2[] getCollidingTile(Vector2 point) {
+    for (Tile tile : tiles) {
+      Vector2 collidingTile = tile.isColliding(point);
+
+      if (collidingTile != null) {
+        return new Vector2[] { collidingTile, tile.isoWorldPosition };
+      }
+    }
+
+    return null;
+  }
 }
