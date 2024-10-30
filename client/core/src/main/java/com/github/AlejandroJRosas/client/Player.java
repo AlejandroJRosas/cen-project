@@ -16,9 +16,12 @@ public class Player implements Entity {
 
 	private Vector2 position;
 	private OrthographicCamera camera;
+	private boolean isCameraAttached;
 	private float stateTime;
 
 	private Texture sheet;
+	private Texture collisionFrame;
+	private Texture bord;
 	private Animation<TextureRegion> currentAnimation;
 
 	// Directions
@@ -33,7 +36,9 @@ public class Player implements Entity {
 
 	public Player(OrthographicCamera camera) {
 		this.camera = camera;
-		sheet = new Texture(Gdx.files.internal("sprites/PlayerMove.png"));
+		sheet = new Texture(Gdx.files.internal("sprites/player-move.png"));
+		collisionFrame = new Texture(Gdx.files.internal("sprites/player-collision.png"));
+		bord = new Texture(Gdx.files.internal("sprites/bord.png"));
 		TextureRegion[][] tmp = TextureRegion.split(sheet, sheet.getWidth() / FRAME_COLS, sheet.getHeight() / FRAME_ROWS);
 
 		// Populate movement frames
@@ -65,6 +70,7 @@ public class Player implements Entity {
 
 		// Set initial position and animation
 		position = new Vector2(0, 0);
+		isCameraAttached = false;
 		stateTime = 0;
 		currentAnimation = idleDownAnimation; // Set to a default animation
 	}
@@ -73,13 +79,22 @@ public class Player implements Entity {
 	public void render(SpriteBatch batch) {
 		TextureRegion currentFrame = currentAnimation.getKeyFrame(stateTime, true);
 		batch.draw(currentFrame, position.x, position.y);
-		camera.position.set(position, 10);
+		batch.draw(bord, position.x, position.y);
+		batch.draw(collisionFrame, position.x, position.y);
+	}
+
+	private void setCameraAttached() {
+		if (Gdx.input.isKeyJustPressed(Input.Keys.C)) {
+			System.out.println("Camera attached: " + !this.isCameraAttached);
+			this.isCameraAttached = !this.isCameraAttached;
+		}
 	}
 
 	@Override
 	public void update(float delta) {
 		stateTime += delta;
 		move();
+		setCameraAttached();
 	}
 
 	public Vector2 getPosition() {
@@ -149,6 +164,9 @@ public class Player implements Entity {
 		}
 
 		position.add(movement);
+		if (isCameraAttached) {
+			camera.position.set(position.x, position.y, 0);
+		}
 		stateTime += Gdx.graphics.getDeltaTime();
 	}
 }

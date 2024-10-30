@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 
 public class GameScreen extends ScreenAdapter {
 	public static final int WIDTH = 320 * 3;
@@ -16,6 +17,7 @@ public class GameScreen extends ScreenAdapter {
 	private OrthographicCamera camera;
 	private Tilemap map;
 	private Player player;
+	Texture voidT = new Texture(Gdx.files.internal("sprites/void.png"));
 	Texture block = new Texture(Gdx.files.internal("sprites/grass.png"));
 
 	private static final float START_ZOOM = 0.4f;
@@ -47,14 +49,12 @@ public class GameScreen extends ScreenAdapter {
 		camera.update();
 		map.update(Gdx.graphics.getDeltaTime());
 
-		// map.getCollidingTile(new Vector2(camera.position.x, camera.position.y));
+		// System.out.println("Camera: " + camera.position);
 
-		// for (Tile tile : map.tiles) {
-		// if (tile.isColliding(new Vector2(camera.position.x, camera.position.y)) !=
-		// null) {
-		// System.out.println("Colliding tile: " + tile.getPosition());
-		// }
-		// }
+		map.getCollidingTile(new Vector2(camera.position.x, camera.position.y));
+		for (Tile tile : map.tiles) {
+			tile.isColliding(player.getPosition());
+		}
 
 		batch.begin();
 		map.render(batch, delta);
@@ -80,6 +80,19 @@ public class GameScreen extends ScreenAdapter {
 		}
 		if (Gdx.input.isKeyPressed(Input.Keys.Y)) {
 			changeZoom(MAX_ZOOM);
+		}
+
+		if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+			camera.position.y += 5;
+		}
+		if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+			camera.position.y -= 5;
+		}
+		if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+			camera.position.x -= 5;
+		}
+		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+			camera.position.x += 5;
 		}
 	}
 
