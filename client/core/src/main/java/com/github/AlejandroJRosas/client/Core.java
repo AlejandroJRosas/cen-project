@@ -5,19 +5,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-/**
- * {@link com.badlogic.gdx.ApplicationListener} implementation shared by all
- * platforms.
- */
 public class Core extends Game {
     private SpriteBatch batch;
-    private GameScreen gameScreen;
 
     @Override
     public void create() {
         batch = new SpriteBatch();
-        gameScreen = new GameScreen(batch);
-        setScreen(gameScreen);
+        setScreen(new LoginScreen(this)); // Set LoginScreen as the initial screen
     }
 
     @Override
@@ -31,5 +25,10 @@ public class Core extends Game {
 
     @Override
     public void dispose() {
+        batch.dispose();
+    }
+
+    public SpriteBatch getBatch() {
+        return batch;
     }
 }
