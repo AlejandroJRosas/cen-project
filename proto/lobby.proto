@@ -1,16 +1,18 @@
 syntax = "proto3";
 
+package lobby;
+
 option go_package = "./pb/lobby";
 option java_package = "pb.lobby";
+
+import 'google/protobuf/empty.proto';
 
 service Lobby {
 	rpc EnterLobby(EnterLobbyRequest) returns (LobbyResponse);
 	rpc SelectTeam(SelectTeamRequest) returns (SelectTeamResponse);
 	rpc UpdateIsReady(UpdateIsReadyRequest) returns (UpdateIsReadyResponse);
-	rpc StreamLobbyUpdates(NoParam) returns (stream LobbyResponse);
+	rpc StreamLobbyUpdates(google.protobuf.Empty) returns (stream LobbyResponse);
 }
-
-message NoParam {}
 
 message Player {
 	string name = 1;

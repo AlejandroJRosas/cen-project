@@ -1,14 +1,16 @@
 syntax = "proto3";
 
+package game;
+
 option go_package = "./pb/game";
 option java_package = "pb.game";
 
+import 'google/protobuf/empty.proto';
+
 service Game {
-    rpc GetGameState(NoParam) returns (GameStateResponse);
+    rpc GetGameState(google.protobuf.Empty) returns (GameStateResponse);
     rpc UpdateGameStream(stream GameUpdateRequest) returns (stream GameStateResponse);
 }
-
-message NoParam {}
 
 message PositionUpdate {
   string playerName = 1;

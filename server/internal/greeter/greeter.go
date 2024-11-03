@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/AlejandroJRosas/cen-project/pb/greeter"
+	"google.golang.org/protobuf/types/known/emptypb"
 )
 
 type GreeterServer struct {
@@ -12,7 +13,7 @@ type GreeterServer struct {
 
 func (s *GreeterServer) SayHello(
 	ctx context.Context,
-	req *greeter.NoParam,
+	req *emptypb.Empty,
 ) (*greeter.HelloResponse, error) {
 	return &greeter.HelloResponse{
 		Message: "Hello From the Server!",
