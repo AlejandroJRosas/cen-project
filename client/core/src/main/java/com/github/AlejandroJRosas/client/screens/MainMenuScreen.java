@@ -1,4 +1,4 @@
-package com.github.AlejandroJRosas.client.game;
+package com.github.AlejandroJRosas.client.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.github.AlejandroJRosas.client.Core;
 
 public class MainMenuScreen implements Screen {
     private final Core game;
@@ -156,3 +157,4 @@ public class MainMenuScreen implements Screen {
         cloudTexture.dispose();
     }
 }
+

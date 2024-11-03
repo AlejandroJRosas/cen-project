@@ -4,7 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.github.AlejandroJRosas.client.screens.LoginScreen;
+import com.github.AlejandroJRosas.client.screens.MainMenuScreen;
 
 public class Core extends Game {
     private SpriteBatch batch;
