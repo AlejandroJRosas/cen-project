@@ -36,7 +36,7 @@ public class LoginScreen implements Screen {
         this.batch = game.getBatch();
 
         // Cargar la imagen de fondo (nubes)
-        backgroundTexture = new Texture("C:\\Users\\Usuario\\Documents\\GitHub\\cen-project\\client\\assets\\background.png");
+        backgroundTexture = new Texture(Gdx.files.internal("background.png"));
 
         stage = new Stage();
 
@@ -122,7 +122,8 @@ public class LoginScreen implements Screen {
     }
 
     @Override
-    public void show() {}
+    public void show() {
+    }
 
     @Override
     public void render(float delta) {
@@ -135,7 +136,8 @@ public class LoginScreen implements Screen {
         // Dibujar la imagen de fondo desplazada
         batch.begin();
         batch.draw(backgroundTexture, backgroundOffsetX, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        batch.draw(backgroundTexture, backgroundOffsetX + backgroundTexture.getWidth(), 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        batch.draw(backgroundTexture, backgroundOffsetX + backgroundTexture.getWidth(), 0, Gdx.graphics.getWidth(),
+                Gdx.graphics.getHeight());
         batch.end();
 
         // Dibujar la UI
@@ -149,13 +151,16 @@ public class LoginScreen implements Screen {
     }
 
     @Override
-    public void pause() {}
+    public void pause() {
+    }
 
     @Override
-    public void resume() {}
+    public void resume() {
+    }
 
     @Override
-    public void hide() {}
+    public void hide() {
+    }
 
     @Override
     public void dispose() {
