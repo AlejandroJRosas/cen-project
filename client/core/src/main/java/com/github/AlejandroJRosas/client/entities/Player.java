@@ -66,7 +66,7 @@ public class Player implements Entity {
 
 		// Set initial position and animation
 		position = new Vector2(0, 0);
-		isCameraAttached = false;
+		isCameraAttached = true;
 		stateTime = 0;
 		currentAnimation = idleDownAnimation; // Set to a default animation
 	}
@@ -81,7 +81,6 @@ public class Player implements Entity {
 
 	private void setCameraAttached() {
 		if (Gdx.input.isKeyJustPressed(Input.Keys.C)) {
-			System.out.println("Camera attached: " + !this.isCameraAttached);
 			this.isCameraAttached = !this.isCameraAttached;
 		}
 	}

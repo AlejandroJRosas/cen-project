@@ -1,4 +1,4 @@
-package com.github.AlejandroJRosas.client;
+package com.github.AlejandroJRosas.client.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -78,6 +78,7 @@ public class LoginScreen implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 String playerName = nameField.getText();
                 game.setScreen(new GameScreen(game.getBatch())); // Change to GameScreen
+                System.out.println("Player name: " + playerName);
             }
         });
 
@@ -94,7 +95,8 @@ public class LoginScreen implements Screen {
     }
 
     @Override
-    public void show() {}
+    public void show() {
+    }
 
     @Override
     public void render(float delta) {
@@ -108,13 +110,16 @@ public class LoginScreen implements Screen {
     }
 
     @Override
-    public void pause() {}
+    public void pause() {
+    }
 
     @Override
-    public void resume() {}
+    public void resume() {
+    }
 
     @Override
-    public void hide() {}
+    public void hide() {
+    }
 
     @Override
     public void dispose() {

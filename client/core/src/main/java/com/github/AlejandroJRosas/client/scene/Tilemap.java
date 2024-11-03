@@ -1,23 +1,16 @@
 package com.github.AlejandroJRosas.client.scene;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.LinkedList;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.github.AlejandroJRosas.client.scene.maps.Maps;
+import com.github.AlejandroJRosas.client.utils.CoordsTransformer;
 
 public class Tilemap {
-  private static final String BLOCK_TAG = "0";
-  // private static final String T1_BLOCK_TAG = "1";
-  // private static final String T2_BLOCK_TAG = "2";
-  // private static final String T3_BLOCK_TAG = "3";
-  // private static final String T4_BLOCK_TAG = "4";
-
   private float revealDelay = 0.05f;
   private float elapsedTime = 0f;
   private int currentTileX = 0;
@@ -25,12 +18,11 @@ public class Tilemap {
 
   private Texture block;
   public LinkedList<Tile> tiles;
-  private String[][] map;
+  private int[][] map;
 
   public Tilemap() {
     block = new Texture(Gdx.files.internal("sprites/grass.png"));
     tiles = new LinkedList<Tile>();
-    map = new String[10][10];
     try {
       fillMap();
     } catch (IOException e) {
@@ -59,26 +51,12 @@ public class Tilemap {
     for (int i = 0; i < tiles.size(); i++) {
       Tile tile = tiles.get(i);
 
-      if (i < currentTileY * map[0].length + currentTileX) {
-        tile.render(batch, delta);
-      }
+      tile.render(batch, delta);
     }
   }
 
   public void fillMap() throws IOException {
-    // TODO: Read map from file instead of hardcoding it
-    FileHandle mapFile = Gdx.files
-        .internal("C:\\Users\\Usuario\\Documents\\GitHub\\cen-project\\client\\assets\\data\\mapBase.txt");
-    BufferedReader reader = new BufferedReader(new FileReader(mapFile.path()));
-    String s = "";
-
-    int count = 0;
-    while ((s = reader.readLine()) != null) {
-      map[count] = s.split(" ");
-      count++;
-    }
-
-    reader.close();
+    map = Maps.MAP_1;
 
     for (int yCoord = 0; yCoord < map.length; yCoord++) {
       for (int xCoord = 0; xCoord < map[yCoord].length; xCoord++) {
@@ -86,7 +64,7 @@ public class Tilemap {
         CoordsTransformer transformer = CoordsTransformer.getInstance();
         Vector2 isoCoords = transformer.convertCartesianToIso(worldPosition);
 
-        if (map[yCoord][xCoord].equals(BLOCK_TAG)) {
+        if (map[yCoord][xCoord] == Maps.BLOCK_TAG) {
           tiles.add(new Tile(block, isoCoords, worldPosition));
         }
       }
