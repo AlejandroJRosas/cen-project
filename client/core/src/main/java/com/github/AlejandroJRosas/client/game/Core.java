@@ -1,4 +1,4 @@
-package com.github.AlejandroJRosas.client;
+package com.github.AlejandroJRosas.client.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;

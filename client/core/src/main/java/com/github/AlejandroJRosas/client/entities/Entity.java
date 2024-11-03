@@ -1,4 +1,4 @@
-package com.github.AlejandroJRosas.client;
+package com.github.AlejandroJRosas.client.entities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 

@@ -1,4 +1,4 @@
-package com.github.AlejandroJRosas.client;
+package com.github.AlejandroJRosas.client.scene;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

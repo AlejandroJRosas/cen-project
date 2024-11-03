@@ -1,4 +1,4 @@
-package com.github.AlejandroJRosas.client;
+package com.github.AlejandroJRosas.client.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -8,6 +8,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.github.AlejandroJRosas.client.entities.Player;
+import com.github.AlejandroJRosas.client.scene.Tile;
+import com.github.AlejandroJRosas.client.scene.Tilemap;
 
 public class GameScreen extends ScreenAdapter {
 	public static final int WIDTH = 320 * 3;

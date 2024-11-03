@@ -1,4 +1,4 @@
-package com.github.AlejandroJRosas.client;
+package com.github.AlejandroJRosas.client.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -20,8 +20,6 @@ public class Player implements Entity {
 	private float stateTime;
 
 	private Texture sheet;
-	private Texture collisionFrame;
-	private Texture bord;
 	private Animation<TextureRegion> currentAnimation;
 
 	// Directions
@@ -37,8 +35,6 @@ public class Player implements Entity {
 	public Player(OrthographicCamera camera) {
 		this.camera = camera;
 		sheet = new Texture(Gdx.files.internal("sprites/player-move.png"));
-		collisionFrame = new Texture(Gdx.files.internal("sprites/player-collision.png"));
-		bord = new Texture(Gdx.files.internal("sprites/bord.png"));
 		TextureRegion[][] tmp = TextureRegion.split(sheet, sheet.getWidth() / FRAME_COLS, sheet.getHeight() / FRAME_ROWS);
 
 		// Populate movement frames
@@ -79,8 +75,8 @@ public class Player implements Entity {
 	public void render(SpriteBatch batch) {
 		TextureRegion currentFrame = currentAnimation.getKeyFrame(stateTime, true);
 		batch.draw(currentFrame, position.x, position.y);
-		batch.draw(bord, position.x, position.y);
-		batch.draw(collisionFrame, position.x, position.y);
+		// batch.draw(bord, position.x, position.y);
+		// batch.draw(collisionFrame, position.x, position.y);
 	}
 
 	private void setCameraAttached() {

@@ -2,8 +2,8 @@ package com.github.AlejandroJRosas.client.lwjgl3;
 
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
-import com.github.AlejandroJRosas.client.Core;
-import com.github.AlejandroJRosas.client.GameScreen;
+import com.github.AlejandroJRosas.client.game.Core;
+import com.github.AlejandroJRosas.client.game.GameScreen;
 
 /** Launches the desktop (LWJGL3) application. */
 public class Lwjgl3Launcher {
