@@ -22,18 +22,18 @@ public class MainMenuScreen implements Screen {
     private final Core game;
     private final Stage stage;
     private final SpriteBatch batch;
-    
+
     // Texturas y variables para el fondo en movimiento
     private final Texture cloudTexture;
     private float backgroundOffsetX;
     private final float cloudSpeed = 50; // Velocidad de movimiento de las nubes
-    
+
     public MainMenuScreen(Core game) {
         this.game = game;
         this.batch = game.getBatch();
 
         // Configuración de la textura de fondo de nubes
-        cloudTexture = new Texture("C:\\Users\\Usuario\\Documents\\GitHub\\cen-project\\client\\assets\\background.png"); // Ruta de la imagen de nubes
+        cloudTexture = new Texture(Gdx.files.internal("background.png")); // Ruta de la imagen de nubes
         backgroundOffsetX = 0; // Posición inicial en X
 
         stage = new Stage();
@@ -116,7 +116,8 @@ public class MainMenuScreen implements Screen {
     }
 
     @Override
-    public void show() {}
+    public void show() {
+    }
 
     @Override
     public void render(float delta) {
@@ -129,7 +130,8 @@ public class MainMenuScreen implements Screen {
         // Dibujar el fondo animado de nubes
         batch.begin();
         batch.draw(cloudTexture, backgroundOffsetX, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        batch.draw(cloudTexture, backgroundOffsetX + cloudTexture.getWidth(), 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        batch.draw(cloudTexture, backgroundOffsetX + cloudTexture.getWidth(), 0, Gdx.graphics.getWidth(),
+                Gdx.graphics.getHeight());
         batch.end();
 
         // Dibujar la UI
@@ -143,13 +145,16 @@ public class MainMenuScreen implements Screen {
     }
 
     @Override
-    public void pause() {}
+    public void pause() {
+    }
 
     @Override
-    public void resume() {}
+    public void resume() {
+    }
 
     @Override
-    public void hide() {}
+    public void hide() {
+    }
 
     @Override
     public void dispose() {
@@ -157,4 +162,3 @@ public class MainMenuScreen implements Screen {
         cloudTexture.dispose();
     }
 }
-
