@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+option go_package = "./pb/game";
+option java_package = "pb.game";
+
+service Game {
+    rpc GetGameState(NoParam) returns (GameStateResponse);
+    rpc UpdateGameStream(stream GameUpdateRequest) returns (stream GameStateResponse);
+}
+
+message NoParam {}
+
+message PositionUpdate {
+  string playerName = 1;
+  float x = 2;
+  float y = 3;
+}
+
+message TileUpdate {
+  string playerName = 1;
+  int32 tileX = 2;
+  int32 tileY = 3;
+  string color = 4;
+}
+
+message PlayerPosition {
+  string playerName = 1;
+  float x = 2;
+  float y = 3;
+}
+
+message GameUpdateRequest {
+  oneof update {
+      PositionUpdate positionUpdate = 1;
+      TileUpdate tileUpdate = 2;
+  }
+}
+
+message GameStateResponse {
+  repeated PlayerPosition positions = 1;
+  map<int32, int32> tileColors = 2;
+  bool gameEnded = 3;
+}

@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+option go_package = "./pb/lobby";
+option java_package = "pb.lobby";
+
+service Lobby {
+	rpc EnterLobby(EnterLobbyRequest) returns (LobbyResponse);
+	rpc SelectTeam(SelectTeamRequest) returns (SelectTeamResponse);
+	rpc UpdateIsReady(UpdateIsReadyRequest) returns (UpdateIsReadyResponse);
+	rpc StreamLobbyUpdates(NoParam) returns (stream LobbyResponse);
+}
+
+message NoParam {}
+
+message Player {
+	string name = 1;
+	int32 team = 2;
+	bool isReady = 3;
+}
+
+message EnterLobbyRequest {
+	string playerName = 1;
+}
+
+message LobbyResponse {
+	repeated Player players = 1;
+}
+
+message SelectTeamRequest {
+  string playerName = 1;
+  int32 selectedTeam = 2;
+}
+
+message SelectTeamResponse {
+	bool success = 1;
+	string message = 2;
+}
+
+message UpdateIsReadyRequest {
+  string message = 1;
+  bool allReady = 2;
+}
+
+message UpdateIsReadyResponse {
+  string message = 1;
+  bool allReady = 2;
+}
