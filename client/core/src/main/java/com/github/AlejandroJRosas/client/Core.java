@@ -1,9 +1,10 @@
-package com.github.AlejandroJRosas.client.game;
+package com.github.AlejandroJRosas.client;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.github.AlejandroJRosas.client.screens.LoginScreen;
 
 public class Core extends Game {
     private SpriteBatch batch;
