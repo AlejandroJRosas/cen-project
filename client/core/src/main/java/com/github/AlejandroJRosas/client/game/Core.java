@@ -11,7 +11,7 @@ public class Core extends Game {
     @Override
     public void create() {
         batch = new SpriteBatch();
-        setScreen(new LoginScreen(this)); // Set LoginScreen as the initial screen
+        setScreen(new MainMenuScreen(this)); // Set LoginScreen as the initial screen
     }
 
     @Override
