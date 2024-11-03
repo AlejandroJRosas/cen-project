@@ -68,7 +68,7 @@ public class Tilemap {
   public void fillMap() throws IOException {
     // TODO: Read map from file instead of hardcoding it
     FileHandle mapFile = Gdx.files
-        .internal("C:\\Users\\Wilme\\Documents\\GitHub\\cen-project\\client\\assets\\data\\mapBase.txt");
+        .internal("C:\\Users\\Usuario\\Documents\\GitHub\\cen-project\\client\\assets\\data\\mapBase.txt");
     BufferedReader reader = new BufferedReader(new FileReader(mapFile.path()));
     String s = "";
 
