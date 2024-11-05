@@ -53,8 +53,8 @@ public class LoginScreen implements Screen {
         textFieldStyle.cursor = createDrawable(Color.WHITE);
         textFieldStyle.selection = createDrawable(Color.LIGHT_GRAY);
 
-        nameField = new TextField("", textFieldStyle);
-        nameField.setMessageText("Enter your name");
+        nameField = new TextField(" Player", textFieldStyle);
+        
 
         // Configuración del botón
         TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();

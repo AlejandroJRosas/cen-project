@@ -5,52 +5,29 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 public class Tile {
-  private Texture texture;
-  public Vector2 worldPosition;
-  public Vector2 isoWorldPosition;
+    private Texture texture;
+    public Vector2 isoWorldPosition;
+    private boolean walkable; // Indica si el tile es transitable
 
-  private float animationY, time, animationAux;
-
-  public Tile(Texture texture, Vector2 isoWorldPosition, Vector2 worldPosition) {
-    this.texture = texture;
-    this.worldPosition = worldPosition;
-    this.isoWorldPosition = isoWorldPosition;
-    this.animationY = isoWorldPosition.y - 32;
-    this.animationAux = 0;
-  }
-
-  public void render(SpriteBatch batch, float delta) {
-    if (time > 0.01f) {
-      if (animationY < isoWorldPosition.y) {
-        animationY += 2;
-      }
-      time = 0;
-    } else {
-      time += delta;
+    public Tile(Texture texture, Vector2 isoWorldPosition, Vector2 worldPosition, boolean isWalkable) {
+        this.texture = texture;
+        this.isoWorldPosition = isoWorldPosition;
+        this.walkable = isWalkable; // Asigna el valor de walkable
     }
 
-    batch.draw(texture, isoWorldPosition.x, animationY - animationAux);
-  }
-
-  public void changeTexture(Texture texture) {
-    this.texture = texture;
-  }
-
-  public Vector2 getPosition() {
-    return worldPosition;
-  }
-
-  /*
-   * TODO: Improve the colliding tile detection to only detect the visual part of
-   * the tile that is actually colliding with the point
-   */
-  public Vector2 isColliding(Vector2 point) {
-    if (isoWorldPosition.x < point.x && isoWorldPosition.x + texture.getWidth() > point.x
-        && isoWorldPosition.y < point.y && isoWorldPosition.y + texture.getHeight() > point.y) {
-      animationAux = 1.5f;
-      return worldPosition;
+    public boolean isWalkable() {
+        return walkable; // Devuelve si el tile es transitable
     }
-    animationAux = 0;
-    return null;
-  }
+
+    // Implementar la lógica para renderizar el tile
+    public void render(SpriteBatch batch, float delta) {
+        batch.draw(texture, isoWorldPosition.x, isoWorldPosition.y);
+    }
+
+    // Implementar la lógica para detectar colisiones
+    public Vector2 isColliding(Vector2 point) {
+        // Lógica de colisión con el punto
+        // Devuelve la posición de colisión si hay colisión
+        return null; // Cambia esto según tu lógica de colisión
+    }
 }
