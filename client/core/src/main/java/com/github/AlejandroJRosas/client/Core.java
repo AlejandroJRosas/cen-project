@@ -4,7 +4,8 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.github.AlejandroJRosas.client.screens.MainMenuScreen;
+import com.github.AlejandroJRosas.client.screens.GameScreen;
+// import com.github.AlejandroJRosas.client.screens.MainMenuScreen;
 
 public class Core extends Game {
     private SpriteBatch batch;
@@ -12,7 +13,7 @@ public class Core extends Game {
     @Override
     public void create() {
         batch = new SpriteBatch();
-        setScreen(new MainMenuScreen(this)); // Set LoginScreen as the initial screen
+        setScreen(new GameScreen(batch));
     }
 
     @Override

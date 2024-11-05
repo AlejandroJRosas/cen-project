@@ -11,11 +11,9 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 
-	"github.com/AlejandroJRosas/cen-project/internal/calculator"
-	"github.com/AlejandroJRosas/cen-project/internal/greeter"
+	"github.com/AlejandroJRosas/cen-project/internal/lobby"
 
-	pbCalc "github.com/AlejandroJRosas/cen-project/pb/calculator"
-	pbGreeter "github.com/AlejandroJRosas/cen-project/pb/greeter"
+	pbLobby "github.com/AlejandroJRosas/cen-project/pb/lobby"
 )
 
 func main() {
@@ -34,8 +32,7 @@ func main() {
 	s := grpc.NewServer()
 	reflection.Register(s)
 
-	pbGreeter.RegisterGreeterServer(s, &greeter.GreeterServer{})
-	pbCalc.RegisterCalculatorServer(s, &calculator.CalculatorServer{})
+	pbLobby.RegisterLobbyServer(s, &lobby.LobbyServer{})
 
 	log.Printf("gRPC server running on %v", listener.Addr())
 

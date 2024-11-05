@@ -5,13 +5,18 @@ package lobby;
 option go_package = "./pb/lobby";
 option java_package = "pb.lobby";
 
-import 'google/protobuf/empty.proto';
-
 service Lobby {
 	rpc EnterLobby(EnterLobbyRequest) returns (LobbyResponse);
-	rpc SelectTeam(SelectTeamRequest) returns (SelectTeamResponse);
+	rpc LeaveLobby(LeaveLobbyRequest) returns (LeaveLobbyResponse);
+	rpc StreamLobby(stream LobbyUpdate) returns (stream LobbyStatus);
+	rpc SelectTeam(SelectTeamRequest) returns (LobbyResponse);
 	rpc UpdateIsReady(UpdateIsReadyRequest) returns (UpdateIsReadyResponse);
-	rpc StreamLobbyUpdates(google.protobuf.Empty) returns (stream LobbyResponse);
+	rpc StartGame(StartGameRequest) returns (StartGameResponse);
+  rpc StreamGameStart(stream GameStartUpdate) returns (stream GameStartNotification);
+}
+
+message EnterLobbyRequest {
+	string playerName = 1;
 }
 
 message Player {
@@ -20,12 +25,27 @@ message Player {
 	bool isReady = 3;
 }
 
-message EnterLobbyRequest {
-	string playerName = 1;
+message LobbyResponse {
+	string message = 1;
+	repeated Player players = 2;
 }
 
-message LobbyResponse {
-	repeated Player players = 1;
+message LeaveLobbyRequest {
+  string playerName = 1;
+}
+
+message LeaveLobbyResponse {
+  string message = 1;
+}
+
+message LobbyUpdate {
+  Player player = 1;
+  bool isJoining = 2;
+}
+
+message LobbyStatus {
+  Player player = 1;
+  int32 amountActivePlayers = 2;
 }
 
 message SelectTeamRequest {
@@ -33,17 +53,28 @@ message SelectTeamRequest {
   int32 selectedTeam = 2;
 }
 
-message SelectTeamResponse {
-	bool success = 1;
-	string message = 2;
-}
-
 message UpdateIsReadyRequest {
-  string message = 1;
-  bool allReady = 2;
+	string playerName = 1;
+  bool isReady = 2;
 }
 
 message UpdateIsReadyResponse {
   string message = 1;
   bool allReady = 2;
+}
+
+message StartGameRequest {
+  string playerName = 1;
+}
+
+message StartGameResponse {
+  string message = 1;
+}
+
+message GameStartUpdate {
+  string playerName = 1;
+}
+
+message GameStartNotification {
+  string message = 1;
 }

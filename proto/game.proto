@@ -7,6 +7,11 @@ option java_package = "pb.game";
 
 import 'google/protobuf/empty.proto';
 
+// rpc StreamScores(stream ScoreUpdate) returns (stream ScoreUpdate);
+// rpc StreamGameStart(stream GameStartUpdate) returns (stream GameStartNotification);
+// rpc GetTopScores(TopScoresRequest) returns (TopScoresResponse);
+// rpc InsertScore(InsertScoreRequest) returns (InsertScoreResponse);
+
 service Game {
     rpc GetGameState(google.protobuf.Empty) returns (GameStateResponse);
     rpc UpdateGameStream(stream GameUpdateRequest) returns (stream GameStateResponse);
